@@ -1,0 +1,166 @@
+{
+  "typography": {
+    "headings": {
+      "font_family": "Manrope, sans-serif",
+      "weights": ["600", "700", "800"],
+      "sizes": {
+        "h1": "text-4xl md:text-5xl tracking-tight",
+        "h2": "text-3xl md:text-4xl tracking-tight",
+        "h3": "text-2xl md:text-3xl tracking-normal",
+        "h4": "text-xl md:text-2xl tracking-normal"
+      }
+    },
+    "body": {
+      "font_family": "Public Sans, sans-serif",
+      "weights": ["400", "500"],
+      "sizes": {
+        "base": "text-base leading-relaxed",
+        "sm": "text-sm leading-relaxed",
+        "xs": "text-xs leading-normal"
+      }
+    },
+    "mono": {
+      "font_family": "JetBrains Mono, monospace",
+      "usage": "IDs, Medical Codes, Dates"
+    }
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "name": "Slate",
+        "shades": {
+          "900": "#0F172A",
+          "800": "#1E293B",
+          "50": "#F8FAFC"
+        }
+      },
+      "accent": {
+        "name": "Emerald",
+        "shades": {
+          "600": "#059669",
+          "500": "#10B981",
+          "100": "#D1FAE5"
+        }
+      },
+      "secondary_accent": {
+        "name": "Royal Blue",
+        "shades": {
+          "600": "#2563EB",
+          "100": "#DBEAFE"
+        }
+      },
+      "semantic": {
+        "success": "#059669",
+        "warning": "#D97706",
+        "error": "#EF4444",
+        "info": "#3B82F6"
+      }
+    },
+    "usage_rules": {
+      "background": "bg-slate-50",
+      "surface": "bg-white",
+      "text_primary": "text-slate-900",
+      "text_secondary": "text-slate-500",
+      "border": "border-slate-200",
+      "primary_action": "bg-emerald-600 hover:bg-emerald-700 text-white",
+      "secondary_action": "bg-white border border-slate-200 hover:bg-slate-50 text-slate-900"
+    }
+  },
+  "visual_enhancers": {
+    "shadows": {
+      "card": "shadow-[0_2px_8px_rgba(0,0,0,0.04)]",
+      "floating": "shadow-[0_8px_30px_rgba(0,0,0,0.08)]",
+      "inner": "shadow-inner"
+    },
+    "borders": {
+      "default": "border border-slate-200",
+      "subtle": "border-b border-slate-100",
+      "focus": "ring-2 ring-emerald-500/20 ring-offset-2"
+    },
+    "radius": {
+      "card": "rounded-xl",
+      "button": "rounded-lg",
+      "input": "rounded-md"
+    },
+    "glassmorphism": {
+      "sidebar": "bg-white/80 backdrop-blur-md border-r border-slate-200/50",
+      "overlay": "bg-slate-900/20 backdrop-blur-sm"
+    }
+  },
+  "grids": {
+    "dashboard_home": "grid grid-cols-1 md:grid-cols-12 gap-6",
+    "card_grid": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
+    "detail_view": "grid grid-cols-1 lg:grid-cols-12 gap-8"
+  },
+  "layouts": {
+    "receptionist_dashboard": "Sidebar layout with high-density data tables",
+    "doctor_dashboard": "Sidebar layout with card-based patient lists and calendar view",
+    "patient_profile": "Split view: Left sidebar for bio/history, Right main area for notes/x-rays/procedures"
+  },
+  "components": {
+    "buttons": {
+      "primary": "h-10 px-4 py-2 bg-emerald-600 text-white hover:bg-emerald-700 rounded-lg font-medium transition-all active:scale-95",
+      "secondary": "h-10 px-4 py-2 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-lg font-medium transition-all active:scale-95",
+      "ghost": "h-10 px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg font-medium transition-all"
+    },
+    "cards": {
+      "base": "bg-white rounded-xl border border-slate-200 shadow-sm p-6",
+      "interactive": "bg-white rounded-xl border border-slate-200 shadow-sm p-6 hover:shadow-md hover:border-emerald-200 transition-all cursor-pointer"
+    },
+    "inputs": {
+      "base": "h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/20 focus-visible:border-emerald-500 disabled:cursor-not-allowed disabled:opacity-50"
+    }
+  },
+  "motion": {
+    "transitions": "transition-all duration-200 ease-out",
+    "hover_lift": "hover:-translate-y-1 hover:shadow-md",
+    "page_enter": "animate-in fade-in slide-in-from-bottom-4 duration-500"
+  },
+  "accessibility": {
+    "contrast": "Ensure text is Slate-900 on White, or White on Emerald-600",
+    "focus_states": "Visible focus rings on all interactive elements",
+    "aria": "Use aria-labels for icon-only buttons"
+  },
+  "media": {
+    "image_urls": {
+      "clinic_hero": {
+        "url": "https://images.unsplash.com/photo-1704455306251-b4634215d98f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBkZW50YWwlMjBjbGluaWMlMjBpbnRlcmlvciUyMGJyaWdodHxlbnwwfHx8fDE3NzA0NzQ4MDJ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Modern bright dental clinic interior for login/landing background"
+      },
+      "doctor_avatar_female": {
+        "url": "https://images.unsplash.com/photo-1565090567208-c8038cfcf6cd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwxfHxkZW50aXN0JTIwZG9jdG9yJTIwcG9ydHJhaXQlMjBwcm9mZXNzaW9uYWx8ZW58MHx8fHwxNzcwNDc0ODA0fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Female dentist profile picture"
+      },
+      "patient_exam": {
+        "url": "https://images.unsplash.com/photo-1631596577204-53ad0d6e6978?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwzfHxkZW50aXN0JTIwZG9jdG9yJTIwcG9ydHJhaXQlMjBwcm9mZXNzaW9uYWx8ZW58MHx8fHwxNzcwNDc0ODA0fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Doctor examining patient, good for dashboard widgets or promo"
+      }
+    }
+  },
+  "3d_libraries": {
+    "usage": "Minimal. Use only for 'Tooth' visualization if absolutely necessary, otherwise stick to high-quality 2D SVG icons.",
+    "recommendation": "Spline (if 3D is requested for hero), otherwise Lucide React icons."
+  },
+  "component_path": "/app/frontend/src/components/ui",
+  "instructions_to_main_agent": [
+    "Use 'Manrope' font for all headings. Import it from Google Fonts.",
+    "Use 'Public Sans' for body text.",
+    "Implement a 'Sidebar' layout for the main dashboard.",
+    "Use the 'Emerald' color scale for the primary brand color (Buttons, Active States).",
+    "Use 'Slate' for neutrals. Do not use pure black.",
+    "For the Receptionist view, prioritize DENSITY. Use compact tables.",
+    "For the Doctor view, prioritize CLARITY. Use cards and larger text for notes.",
+    "Ensure all inputs and buttons have the 'rounded-lg' or 'rounded-md' class, not 'rounded-none'.",
+    "Use 'lucide-react' for icons.",
+    "Add 'data-testid' to all interactive elements."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Do not use generic centered layouts.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur) for the sidebar.",
+    "Every interaction needs micro-animations - hover states, transitions.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures or noise overlays can be added to the background for a premium feel.",
+    "Use 'sonner' for toasts."
+  ]
+}
