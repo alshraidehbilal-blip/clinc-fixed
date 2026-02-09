@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
 import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 import { Input } from './ui/input';
@@ -14,7 +13,6 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export default function ProceduresManagement() {
-  const { t, i18n } = useTranslation();
   const [procedures, setProcedures] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
@@ -91,20 +89,20 @@ export default function ProceduresManagement() {
   };
 
   if (loading) {
-    return <div className="p-8 text-center text-slate-500">{t('loading')}</div>;
+    return <div className="p-8 text-center text-slate-500">Loading...</div>;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-slate-900" style={{ fontFamily: 'Manrope, sans-serif' }}>
-          {t('manageProcedures')}
+          Manage Procedures
         </h2>
         <Dialog open={showDialog} onOpenChange={(open) => { setShowDialog(open); if (!open) resetForm(); }}>
           <DialogTrigger asChild>
             <Button data-testid="add-procedure-btn" className="bg-emerald-600 hover:bg-emerald-700">
               <Plus className="h-4 w-4 mr-2" />
-              {t('addProcedure')}
+              Add Procedure
             </Button>
           </DialogTrigger>
           <DialogContent data-testid="procedure-dialog" className="max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -114,7 +112,7 @@ export default function ProceduresManagement() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="name_en">{t('nameEnglish')}</Label>
+                  <Label htmlFor="name_en">Name (English)</Label>
                   <Input
                     id="name_en"
                     data-testid="procedure-name-en-input"
@@ -124,7 +122,7 @@ export default function ProceduresManagement() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="name_ar">{t('nameArabic')}</Label>
+                  <Label htmlFor="name_ar">Name (Arabic)</Label>
                   <Input
                     id="name_ar"
                     data-testid="procedure-name-ar-input"
@@ -135,7 +133,7 @@ export default function ProceduresManagement() {
                 </div>
               </div>
               <div>
-                <Label htmlFor="price">{t('price')} ({t('JOD')})</Label>
+                <Label htmlFor="price">Price (JOD)</Label>
                 <Input
                   id="price"
                   type="number"
@@ -147,7 +145,7 @@ export default function ProceduresManagement() {
                 />
               </div>
               <div>
-                <Label htmlFor="description_en">{t('descriptionEnglish')}</Label>
+                <Label htmlFor="description_en">Description (English)</Label>
                 <Textarea
                   id="description_en"
                   data-testid="procedure-desc-en-input"
@@ -157,7 +155,7 @@ export default function ProceduresManagement() {
                 />
               </div>
               <div>
-                <Label htmlFor="description_ar">{t('descriptionArabic')}</Label>
+                <Label htmlFor="description_ar">Description (Arabic)</Label>
                 <Textarea
                   id="description_ar"
                   data-testid="procedure-desc-ar-input"
@@ -167,7 +165,7 @@ export default function ProceduresManagement() {
                 />
               </div>
               <Button data-testid="submit-procedure-btn" type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700">
-                {t('save')}
+                Save
               </Button>
             </form>
           </DialogContent>
@@ -176,29 +174,29 @@ export default function ProceduresManagement() {
 
       <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         {procedures.length === 0 ? (
-          <div data-testid="no-procedures-message" className="p-8 text-center text-slate-500">{t('noData')}</div>
+          <div data-testid="no-procedures-message" className="p-8 text-center text-slate-500">No data available</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('name')}</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('price')}</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('description')}</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('actions')}</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Name</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Price</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Description</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200">
                 {procedures.map((procedure) => (
                   <tr key={procedure.id} data-testid={`procedure-row-${procedure.id}`} className="hover:bg-slate-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">
-                      {i18n.language === 'ar' ? procedure.name_ar : procedure.name_en}
+                      {procedure.name_en}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-emerald-600">
-                      {procedure.price.toFixed(2)} {t('JOD')}
+                      {procedure.price.toFixed(2)} JOD
                     </td>
                     <td className="px-6 py-4 text-sm text-slate-600">
-                      {i18n.language === 'ar' ? procedure.description_ar : procedure.description_en}
+                      {procedure.description_en}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <div className="flex gap-2">
@@ -232,13 +230,13 @@ export default function ProceduresManagement() {
       <AlertDialog open={!!deleteProcedure} onOpenChange={(open) => !open && setDeleteProcedure(null)}>
         <AlertDialogContent data-testid="delete-procedure-dialog">
           <AlertDialogHeader>
-            <AlertDialogTitle>{t('confirmDelete')}</AlertDialogTitle>
-            <AlertDialogDescription>{t('deleteConfirmation')}</AlertDialogDescription>
+            <AlertDialogTitle>Confirm Delete</AlertDialogTitle>
+            <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel data-testid="cancel-delete-btn">{t('cancel')}</AlertDialogCancel>
+            <AlertDialogCancel data-testid="cancel-delete-btn">Cancel</AlertDialogCancel>
             <AlertDialogAction data-testid="confirm-delete-btn" onClick={handleDelete} className="bg-red-600 hover:bg-red-700">
-              {t('delete')}
+              Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

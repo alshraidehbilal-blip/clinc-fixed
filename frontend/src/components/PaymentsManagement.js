@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
 import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 import { Input } from './ui/input';
@@ -14,7 +13,6 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export default function PaymentsManagement() {
-  const { t } = useTranslation();
   const [payments, setPayments] = useState([]);
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -63,44 +61,44 @@ export default function PaymentsManagement() {
   };
 
   if (loading) {
-    return <div className="p-8 text-center text-slate-500">{t('loading')}</div>;
+    return <div className="p-8 text-center text-slate-500">Loading...</div>;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-slate-900" style={{ fontFamily: 'Manrope, sans-serif' }}>
-          {t('payments')}
+          Payments
         </h2>
         <Dialog open={showDialog} onOpenChange={(open) => { setShowDialog(open); if (!open) resetForm(); }}>
           <DialogTrigger asChild>
             <Button data-testid="record-payment-btn" className="bg-emerald-600 hover:bg-emerald-700">
               <Plus className="h-4 w-4 mr-2" />
-              {t('recordPayment')}
+              Record Payment
             </Button>
           </DialogTrigger>
           <DialogContent data-testid="payment-dialog">
             <DialogHeader>
-              <DialogTitle>{t('recordPayment')}</DialogTitle>
+              <DialogTitle>Record Payment</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <Label htmlFor="patient">{t('selectPatient')}</Label>
+                <Label htmlFor="patient">Select Patient</Label>
                 <Select value={formData.patient_id} onValueChange={(value) => setFormData({ ...formData, patient_id: value })}>
                   <SelectTrigger data-testid="payment-patient-select">
-                    <SelectValue placeholder={t('selectPatient')} />
+                    <SelectValue placeholder=Select Patient />
                   </SelectTrigger>
                   <SelectContent>
                     {patients.map((patient) => (
                       <SelectItem key={patient.id} value={patient.id}>
-                        {patient.name} - {t('balance')}: {patient.balance.toFixed(2)} {t('JOD')}
+                        {patient.name} - Balance: {patient.balance.toFixed(2)} JOD
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
               <div>
-                <Label htmlFor="amount">{t('amount')} ({t('JOD')})</Label>
+                <Label htmlFor="amount">Amount (JOD)</Label>
                 <Input
                   id="amount"
                   type="number"
@@ -112,7 +110,7 @@ export default function PaymentsManagement() {
                 />
               </div>
               <div>
-                <Label htmlFor="notes">{t('notes')}</Label>
+                <Label htmlFor="notes">Notes</Label>
                 <Textarea
                   id="notes"
                   data-testid="payment-notes-input"
@@ -122,7 +120,7 @@ export default function PaymentsManagement() {
                 />
               </div>
               <Button data-testid="submit-payment-btn" type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700">
-                {t('save')}
+                Save
               </Button>
             </form>
           </DialogContent>
@@ -131,16 +129,16 @@ export default function PaymentsManagement() {
 
       <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         {payments.length === 0 ? (
-          <div data-testid="no-payments-message" className="p-8 text-center text-slate-500">{t('noData')}</div>
+          <div data-testid="no-payments-message" className="p-8 text-center text-slate-500">No data available</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('patientName')}</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('amount')}</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('paymentDate')}</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('notes')}</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Patient Name</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Amount</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Payment Date</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Notes</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200">
@@ -148,7 +146,7 @@ export default function PaymentsManagement() {
                   <tr key={payment.id} data-testid={`payment-row-${payment.id}`} className="hover:bg-slate-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">{payment.patient_name}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-emerald-600">
-                      {payment.amount.toFixed(2)} {t('JOD')}
+                      {payment.amount.toFixed(2)} JOD
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-600">
                       {new Date(payment.payment_date).toLocaleDateString()}

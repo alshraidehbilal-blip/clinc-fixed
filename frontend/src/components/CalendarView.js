@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
@@ -10,7 +9,6 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export default function CalendarView() {
-  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [appointments, setAppointments] = useState([]);
@@ -56,7 +54,7 @@ export default function CalendarView() {
   };
 
   const { daysInMonth, startingDayOfWeek } = getDaysInMonth(currentDate);
-  const monthName = currentDate.toLocaleDateString(i18n.language === 'ar' ? 'ar-SA' : 'en-US', { month: 'long', year: 'numeric' });
+  const monthName = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   const weekDays = i18n.language === 'ar' 
     ? ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت']
     : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -116,7 +114,7 @@ export default function CalendarView() {
   };
 
   if (loading) {
-    return <div className="p-8 text-center text-slate-500">{t('loading')}</div>;
+    return <div className="p-8 text-center text-slate-500">Loading...</div>;
   }
 
   return (

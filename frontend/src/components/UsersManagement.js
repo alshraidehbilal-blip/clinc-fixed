@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
 import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 import { Input } from './ui/input';
@@ -14,7 +13,6 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export default function UsersManagement() {
-  const { t } = useTranslation();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
@@ -90,20 +88,20 @@ export default function UsersManagement() {
   };
 
   if (loading) {
-    return <div className="p-8 text-center text-slate-500">{t('loading')}</div>;
+    return <div className="p-8 text-center text-slate-500">Loading...</div>;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-slate-900" style={{ fontFamily: 'Manrope, sans-serif' }}>
-          {t('manageUsers')}
+          Manage Users
         </h2>
         <Dialog open={showDialog} onOpenChange={(open) => { setShowDialog(open); if (!open) resetForm(); }}>
           <DialogTrigger asChild>
             <Button data-testid="add-user-btn" className="bg-emerald-600 hover:bg-emerald-700">
               <Plus className="h-4 w-4 mr-2" />
-              {t('addUser')}
+              Add User
             </Button>
           </DialogTrigger>
           <DialogContent data-testid="user-dialog">
@@ -112,7 +110,7 @@ export default function UsersManagement() {
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <Label htmlFor="name">{t('name')}</Label>
+                <Label htmlFor="name">Name</Label>
                 <Input
                   id="name"
                   data-testid="user-name-input"
@@ -122,7 +120,7 @@ export default function UsersManagement() {
                 />
               </div>
               <div>
-                <Label htmlFor="email">{t('email')}</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -133,7 +131,7 @@ export default function UsersManagement() {
                 />
               </div>
               <div>
-                <Label htmlFor="phone">{t('phone')}</Label>
+                <Label htmlFor="phone">Phone</Label>
                 <Input
                   id="phone"
                   data-testid="user-phone-input"
@@ -143,15 +141,15 @@ export default function UsersManagement() {
                 />
               </div>
               <div>
-                <Label htmlFor="role">{t('role')}</Label>
+                <Label htmlFor="role">Role</Label>
                 <Select value={formData.role} onValueChange={(value) => setFormData({ ...formData, role: value })}>
                   <SelectTrigger data-testid="user-role-select">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="admin">{t('admin')}</SelectItem>
-                    <SelectItem value="doctor">{t('doctor')}</SelectItem>
-                    <SelectItem value="receptionist">{t('receptionist')}</SelectItem>
+                    <SelectItem value="admin">Admin</SelectItem>
+                    <SelectItem value="doctor">Doctor</SelectItem>
+                    <SelectItem value="receptionist">Receptionist</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -167,7 +165,7 @@ export default function UsersManagement() {
                 />
               </div>
               <Button data-testid="submit-user-btn" type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700">
-                {t('save')}
+                Save
               </Button>
             </form>
           </DialogContent>
@@ -176,17 +174,17 @@ export default function UsersManagement() {
 
       <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         {users.length === 0 ? (
-          <div data-testid="no-users-message" className="p-8 text-center text-slate-500">{t('noData')}</div>
+          <div data-testid="no-users-message" className="p-8 text-center text-slate-500">No data available</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('name')}</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('email')}</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('phone')}</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('role')}</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('actions')}</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Name</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Email</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Phone</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Role</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200">
@@ -201,7 +199,7 @@ export default function UsersManagement() {
                         user.role === 'doctor' ? 'bg-emerald-100 text-emerald-700' :
                         'bg-blue-100 text-blue-700'
                       }`}>
-                        {t(user.role)}
+                        ${user.role}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
@@ -236,13 +234,13 @@ export default function UsersManagement() {
       <AlertDialog open={!!deleteUser} onOpenChange={(open) => !open && setDeleteUser(null)}>
         <AlertDialogContent data-testid="delete-user-dialog">
           <AlertDialogHeader>
-            <AlertDialogTitle>{t('confirmDelete')}</AlertDialogTitle>
-            <AlertDialogDescription>{t('deleteConfirmation')}</AlertDialogDescription>
+            <AlertDialogTitle>Confirm Delete</AlertDialogTitle>
+            <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel data-testid="cancel-delete-btn">{t('cancel')}</AlertDialogCancel>
+            <AlertDialogCancel data-testid="cancel-delete-btn">Cancel</AlertDialogCancel>
             <AlertDialogAction data-testid="confirm-delete-btn" onClick={handleDelete} className="bg-red-600 hover:bg-red-700">
-              {t('delete')}
+              Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

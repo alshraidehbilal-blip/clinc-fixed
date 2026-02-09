@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
-import { useTranslation } from 'react-i18next';
 import Sidebar from '../components/Sidebar';
 import { Button } from '../components/ui/button';
 import { Textarea } from '../components/ui/textarea';
@@ -19,7 +18,6 @@ export default function PatientDetailPage() {
   const { patientId } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { t, i18n } = useTranslation();
   const [patient, setPatient] = useState(null);
   const [history, setHistory] = useState([]);
   const [xrays, setXrays] = useState([]);
@@ -34,7 +32,6 @@ export default function PatientDetailPage() {
   const [paymentAmount, setPaymentAmount] = useState('');
   const [paymentNotes, setPaymentNotes] = useState('');
 
-  const isRTL = i18n.language === 'ar';
   const isDoctor = user?.role === 'doctor';
   const isAdmin = user?.role === 'admin';
   const canRecordPayment = isAdmin || user?.role === 'receptionist';
@@ -167,25 +164,25 @@ export default function PatientDetailPage() {
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
               <div>
-                <p className="text-sm text-slate-500">{t('phone')}</p>
+                <p className="text-sm text-slate-500">Phone</p>
                 <p className="text-base font-medium text-slate-900">{patient.phone}</p>
               </div>
               <div>
-                <p className="text-sm text-slate-500">{t('doctorName')}</p>
+                <p className="text-sm text-slate-500">Doctor Name</p>
                 <p className="text-base font-medium text-slate-900">{patient.doctor_name}</p>
               </div>
               <div>
-                <p className="text-sm text-slate-500">{t('totalCost')}</p>
-                <p className="text-base font-semibold text-slate-700">{patient.total_cost.toFixed(2)} {t('JOD')}</p>
+                <p className="text-sm text-slate-500">Total Cost</p>
+                <p className="text-base font-semibold text-slate-700">{patient.total_cost.toFixed(2)} JOD</p>
               </div>
               <div>
-                <p className="text-sm text-slate-500">{t('totalPaid')}</p>
-                <p className="text-base font-semibold text-emerald-600">{patient.total_paid.toFixed(2)} {t('JOD')}</p>
+                <p className="text-sm text-slate-500">Total Paid</p>
+                <p className="text-base font-semibold text-emerald-600">{patient.total_paid.toFixed(2)} JOD</p>
               </div>
               <div className="md:col-span-2 lg:col-span-4">
                 <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg p-4 border border-orange-200">
-                  <p className="text-sm text-orange-700 mb-1">{t('balance')}</p>
-                  <p className="text-2xl font-bold text-orange-900">{patient.balance.toFixed(2)} {t('JOD')}</p>
+                  <p className="text-sm text-orange-700 mb-1">Balance</p>
+                  <p className="text-2xl font-bold text-orange-900">{patient.balance.toFixed(2)} JOD</p>
                 </div>
               </div>
             </div>
@@ -197,16 +194,16 @@ export default function PatientDetailPage() {
                 <DialogTrigger asChild>
                   <Button data-testid="record-payment-btn" className="bg-emerald-600 hover:bg-emerald-700">
                     <DollarSign className="h-4 w-4 mr-2" />
-                    {t('recordPayment')}
+                    Record Payment
                   </Button>
                 </DialogTrigger>
                 <DialogContent data-testid="payment-dialog">
                   <DialogHeader>
-                    <DialogTitle>{t('recordPayment')}</DialogTitle>
+                    <DialogTitle>Record Payment</DialogTitle>
                   </DialogHeader>
                   <form onSubmit={handleRecordPayment} className="space-y-4">
                     <div>
-                      <Label htmlFor="payment-amount">{t('amount')} ({t('JOD')})</Label>
+                      <Label htmlFor="payment-amount">Amount (JOD)</Label>
                       <input
                         id="payment-amount"
                         type="number"
@@ -219,7 +216,7 @@ export default function PatientDetailPage() {
                       />
                     </div>
                     <div>
-                      <Label htmlFor="payment-notes">{t('notes')}</Label>
+                      <Label htmlFor="payment-notes">Notes</Label>
                       <Textarea
                         id="payment-notes"
                         data-testid="payment-notes-input"
@@ -229,7 +226,7 @@ export default function PatientDetailPage() {
                       />
                     </div>
                     <Button data-testid="submit-payment-btn" type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700">
-                      {t('save')}
+                      Save
                     </Button>
                   </form>
                 </DialogContent>
@@ -244,16 +241,16 @@ export default function PatientDetailPage() {
                   <DialogTrigger asChild>
                     <Button data-testid="add-notes-btn" className="bg-emerald-600 hover:bg-emerald-700 w-full lg:w-auto">
                       <FileText className="h-4 w-4 mr-2" />
-                      {t('addNotes')}
+                      Add Notes
                     </Button>
                   </DialogTrigger>
                   <DialogContent data-testid="add-history-dialog" className="max-w-2xl max-h-[80vh] overflow-y-auto">
                     <DialogHeader>
-                      <DialogTitle>{t('addNotes')}</DialogTitle>
+                      <DialogTitle>Add Notes</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleAddHistory} className="space-y-4">
                       <div>
-                        <Label htmlFor="notes">{t('notes')}</Label>
+                        <Label htmlFor="notes">Notes</Label>
                         <Textarea
                           id="notes"
                           data-testid="notes-textarea"
@@ -264,7 +261,7 @@ export default function PatientDetailPage() {
                         />
                       </div>
                       <div>
-                        <Label>{t('selectProcedures')}</Label>
+                        <Label>Select Procedures</Label>
                         <div className="mt-2 space-y-2 max-h-64 overflow-y-auto border border-slate-200 rounded-lg p-4">
                           {procedures.map((proc) => (
                             <div key={proc.id} className="flex items-center space-x-2">
@@ -275,7 +272,7 @@ export default function PatientDetailPage() {
                                 onCheckedChange={() => toggleProcedure(proc.id)}
                               />
                               <label htmlFor={`proc-${proc.id}`} className="flex-1 text-sm cursor-pointer">
-                                {isRTL ? proc.name_ar : proc.name_en} - <span className="text-emerald-600 font-semibold">{proc.price} {t('JOD')}</span>
+                                {proc.name_en} - <span className="text-emerald-600 font-semibold">{proc.price} JOD</span>
                               </label>
                             </div>
                           ))}
@@ -283,12 +280,12 @@ export default function PatientDetailPage() {
                       </div>
                       <div className="bg-slate-50 rounded-lg p-4">
                         <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium text-slate-700">{t('totalAmount')}:</span>
-                          <span className="text-lg font-bold text-emerald-600">{getTotalCost().toFixed(2)} {t('JOD')}</span>
+                          <span className="text-sm font-medium text-slate-700">Total Amount:</span>
+                          <span className="text-lg font-bold text-emerald-600">{getTotalCost().toFixed(2)} JOD</span>
                         </div>
                       </div>
                       <Button data-testid="submit-history-btn" type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700">
-                        {t('save')}
+                        Save
                       </Button>
                     </form>
                   </DialogContent>
@@ -304,7 +301,7 @@ export default function PatientDetailPage() {
                   />
                   <Button data-testid="upload-xray-btn" type="submit" disabled={!selectedFile}>
                     <Upload className="h-4 w-4 mr-2" />
-                    {t('uploadXray')}
+                    Upload X-Ray
                   </Button>
                 </form>
               </div>
@@ -312,7 +309,7 @@ export default function PatientDetailPage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                 <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
                   <h2 className="text-xl font-bold text-slate-900 mb-4" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                    {t('medicalHistory')}
+                    Medical History
                   </h2>
                   <div className="space-y-4">
                     {history.length === 0 ? (
@@ -321,7 +318,7 @@ export default function PatientDetailPage() {
                       history.map((record) => (
                         <div key={record.id} data-testid={`history-record-${record.id}`} className="border-l-4 border-emerald-500 pl-4 py-2">
                           <p className="text-xs text-slate-500 mb-1">
-                            {new Date(record.date).toLocaleDateString(isRTL ? 'ar-SA' : 'en-US')}
+                            {new Date(record.date).toLocaleDateString('en-US')}
                           </p>
                           <p className="text-sm text-slate-700 mb-2">{record.notes}</p>
                           {record.procedures.length > 0 && (
@@ -330,14 +327,14 @@ export default function PatientDetailPage() {
                                 const proc = procedures.find(p => p.id === procId);
                                 return proc ? (
                                   <span key={procId} className="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full">
-                                    {isRTL ? proc.name_ar : proc.name_en}
+                                    {proc.name_en}
                                   </span>
                                 ) : null;
                               })}
                             </div>
                           )}
                           <p className="text-sm font-semibold text-emerald-600 mt-2">
-                            {t('totalAmount')}: {record.total_cost.toFixed(2)} {t('JOD')}
+                            Total Amount: {record.total_cost.toFixed(2)} JOD
                           </p>
                         </div>
                       ))
@@ -347,7 +344,7 @@ export default function PatientDetailPage() {
 
                 <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
                   <h2 className="text-xl font-bold text-slate-900 mb-4" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                    {t('xrays')}
+                    X-Rays
                   </h2>
                   <div className="grid grid-cols-1 gap-4">
                     {xrays.length === 0 ? (
@@ -358,7 +355,7 @@ export default function PatientDetailPage() {
                           <img src={xray.image_data} alt={xray.filename} className="w-full h-48 object-cover rounded" />
                           <p className="text-xs text-slate-500 mt-2">{xray.filename}</p>
                           <p className="text-xs text-slate-400">
-                            {new Date(xray.uploaded_at).toLocaleDateString(isRTL ? 'ar-SA' : 'en-US')}
+                            {new Date(xray.uploaded_at).toLocaleDateString('en-US')}
                           </p>
                         </div>
                       ))
@@ -371,28 +368,28 @@ export default function PatientDetailPage() {
 
           <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
             <h2 className="text-xl font-bold text-slate-900 mb-4" style={{ fontFamily: 'Manrope, sans-serif' }}>
-              {t('paymentHistory')}
+              Payment History
             </h2>
             {payments.length === 0 ? (
-              <p data-testid="no-payments-message" className="text-sm text-slate-500">{t('noData')}</p>
+              <p data-testid="no-payments-message" className="text-sm text-slate-500">No data available</p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead className="bg-slate-50 border-b border-slate-200">
                     <tr>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('paymentDate')}</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('amount')}</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('notes')}</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Payment Date</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Amount</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Notes</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200">
                     {payments.map((payment) => (
                       <tr key={payment.id} data-testid={`payment-row-${payment.id}`} className="hover:bg-slate-50">
                         <td className="px-4 py-3 whitespace-nowrap text-sm text-slate-600">
-                          {new Date(payment.payment_date).toLocaleDateString(isRTL ? 'ar-SA' : 'en-US')}
+                          {new Date(payment.payment_date).toLocaleDateString('en-US')}
                         </td>
                         <td className="px-4 py-3 whitespace-nowrap text-sm font-semibold text-emerald-600">
-                          {payment.amount.toFixed(2)} {t('JOD')}
+                          {payment.amount.toFixed(2)} JOD
                         </td>
                         <td className="px-4 py-3 text-sm text-slate-600">{payment.notes || '-'}</td>
                       </tr>
