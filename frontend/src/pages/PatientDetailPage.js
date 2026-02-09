@@ -155,7 +155,7 @@ export default function PatientDetailPage() {
             className="mb-6"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            {t('back') || 'Back'}
+            Back
           </Button>
 
           <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-8 mb-6">
@@ -313,7 +313,7 @@ export default function PatientDetailPage() {
                   </h2>
                   <div className="space-y-4">
                     {history.length === 0 ? (
-                      <p data-testid="no-history-message" className="text-sm text-slate-500">{t('noHistory') || 'No history available'}</p>
+                      <p data-testid="no-history-message" className="text-sm text-slate-500">No history available</p>
                     ) : (
                       history.map((record) => (
                         <div key={record.id} data-testid={`history-record-${record.id}`} className="border-l-4 border-emerald-500 pl-4 py-2">
@@ -348,7 +348,7 @@ export default function PatientDetailPage() {
                   </h2>
                   <div className="grid grid-cols-1 gap-4">
                     {xrays.length === 0 ? (
-                      <p data-testid="no-xrays-message" className="text-sm text-slate-500">{t('noXrays') || 'No X-rays available'}</p>
+                      <p data-testid="no-xrays-message" className="text-sm text-slate-500">No X-rays available</p>
                     ) : (
                       xrays.map((xray) => (
                         <div key={xray.id} data-testid={`xray-${xray.id}`} className="border border-slate-200 rounded-lg p-2">
