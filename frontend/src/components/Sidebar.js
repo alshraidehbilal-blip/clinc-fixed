@@ -1,21 +1,13 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from './ui/button';
-import { LayoutDashboard, Users, Calendar, LogOut, Globe, Activity } from 'lucide-react';
+import { LayoutDashboard, Users, Calendar, LogOut, Activity } from 'lucide-react';
 
 export default function Sidebar() {
   const { user, logout } = useAuth();
-  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const toggleLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'ar' : 'en';
-    i18n.changeLanguage(newLang);
-    document.documentElement.setAttribute('dir', newLang === 'ar' ? 'rtl' : 'ltr');
-  };
 
   const handleLogout = () => {
     logout();
@@ -23,18 +15,18 @@ export default function Sidebar() {
   };
 
   const menuItems = user?.role === 'admin' ? [
-    { icon: LayoutDashboard, label: t('dashboard'), path: '/admin/dashboard' },
-    { icon: Users, label: t('users'), path: '/admin/dashboard' },
-    { icon: Calendar, label: t('calendar'), path: '/admin/dashboard' },
-    { icon: Activity, label: t('procedures'), path: '/admin/dashboard' }
+    { icon: LayoutDashboard, label: 'Dashboard', path: '/admin/dashboard' },
+    { icon: Users, label: 'Users', path: '/admin/dashboard' },
+    { icon: Calendar, label: 'Calendar', path: '/admin/dashboard' },
+    { icon: Activity, label: 'Procedures', path: '/admin/dashboard' }
   ] : user?.role === 'doctor' ? [
-    { icon: LayoutDashboard, label: t('dashboard'), path: '/doctor/dashboard' },
-    { icon: Users, label: t('patients'), path: '/doctor/dashboard' },
-    { icon: Calendar, label: t('appointments'), path: '/doctor/dashboard' }
+    { icon: LayoutDashboard, label: 'Dashboard', path: '/doctor/dashboard' },
+    { icon: Users, label: 'Patients', path: '/doctor/dashboard' },
+    { icon: Calendar, label: 'Appointments', path: '/doctor/dashboard' }
   ] : [
-    { icon: LayoutDashboard, label: t('dashboard'), path: '/receptionist/dashboard' },
-    { icon: Users, label: t('patients'), path: '/receptionist/dashboard' },
-    { icon: Calendar, label: t('appointments'), path: '/receptionist/dashboard' }
+    { icon: LayoutDashboard, label: 'Dashboard', path: '/receptionist/dashboard' },
+    { icon: Users, label: 'Patients', path: '/receptionist/dashboard' },
+    { icon: Calendar, label: 'Appointments', path: '/receptionist/dashboard' }
   ];
 
   return (
@@ -43,11 +35,11 @@ export default function Sidebar() {
         <div className="flex items-center gap-2 mb-1">
           <Activity className="h-6 w-6 text-emerald-600" />
           <h2 className="text-xl font-bold text-slate-900" style={{ fontFamily: 'Manrope, sans-serif' }}>
-            {t('dentalClinic')}
+            Expert's Dental Clinic
           </h2>
         </div>
         <p className="text-sm text-slate-500 mt-2">{user?.name}</p>
-        <p className="text-xs text-emerald-600 font-medium">{t(user?.role || 'user')}</p>
+        <p className="text-xs text-emerald-600 font-medium capitalize">{user?.role || 'user'}</p>
       </div>
 
       <nav className="flex-1 p-4">
@@ -76,22 +68,13 @@ export default function Sidebar() {
 
       <div className="p-4 border-t border-slate-200 space-y-2">
         <Button
-          data-testid="sidebar-language-toggle-btn"
-          variant="ghost"
-          className="w-full justify-start"
-          onClick={toggleLanguage}
-        >
-          <Globe className="h-5 w-5 mr-3" />
-          {i18n.language === 'en' ? 'العربية' : 'English'}
-        </Button>
-        <Button
           data-testid="sidebar-logout-btn"
           variant="ghost"
           className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
           onClick={handleLogout}
         >
           <LogOut className="h-5 w-5 mr-3" />
-          {t('logout')}
+          Logout
         </Button>
       </div>
     </div>
