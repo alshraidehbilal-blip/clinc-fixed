@@ -45,7 +45,7 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="text-emerald-600 font-medium">{t('loading')}</div>
+        <div className="text-emerald-600 font-medium">Loading...</div>
       </div>
     );
   }
@@ -57,9 +57,9 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto">
           <div className="mb-8">
             <h1 className="text-4xl font-bold text-slate-900 mb-2" style={{ fontFamily: 'Manrope, sans-serif' }}>
-              {t('welcome')}, {user?.name}
+              Welcome, {user?.name}
             </h1>
-            <p className="text-slate-600">{t('admin')} {t('dashboard')}</p>
+            <p className="text-slate-600">Admin Dashboard</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
