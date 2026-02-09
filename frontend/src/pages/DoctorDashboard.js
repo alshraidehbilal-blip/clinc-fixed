@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
-import { useTranslation } from 'react-i18next';
 import Sidebar from '../components/Sidebar';
 import { Button } from '../components/ui/button';
 import { Calendar, User, FileText } from 'lucide-react';
@@ -13,14 +12,11 @@ const API = `${BACKEND_URL}/api`;
 
 export default function DoctorDashboard() {
   const { user } = useAuth();
-  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
   const [stats, setStats] = useState({ appointments_today: 0, total_patients: 0 });
   const [loading, setLoading] = useState(true);
-
-  const isRTL = i18n.language === 'ar';
 
   useEffect(() => {
     fetchData();
@@ -65,16 +61,16 @@ export default function DoctorDashboard() {
         <div className="max-w-7xl mx-auto">
           <div className="mb-8">
             <h1 className="text-4xl font-bold text-slate-900 mb-2" style={{ fontFamily: 'Manrope, sans-serif' }}>
-              {t('welcome')}, {user?.name}
+              Welcome, {user?.name}
             </h1>
-            <p className="text-slate-600">{t('dashboard')}</p>
+            <p className="text-slate-600">Dashboard</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div data-testid="today-appointments-card" className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-slate-500 mb-1">{t('todayAppointments')}</p>
+                  <p className="text-sm text-slate-500 mb-1">Today's Appointments</p>
                   <p className="text-3xl font-bold text-slate-900">{stats.appointments_today}</p>
                 </div>
                 <div className="h-12 w-12 bg-emerald-100 rounded-lg flex items-center justify-center">
@@ -86,7 +82,7 @@ export default function DoctorDashboard() {
             <div data-testid="total-patients-card" className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-slate-500 mb-1">{t('patients')}</p>
+                  <p className="text-sm text-slate-500 mb-1">Patients</p>
                   <p className="text-3xl font-bold text-slate-900">{stats.total_patients}</p>
                 </div>
                 <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -98,8 +94,8 @@ export default function DoctorDashboard() {
             <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl border border-emerald-400 shadow-sm p-6 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-emerald-100 mb-1">{t('today')}</p>
-                  <p className="text-lg font-medium">{new Date().toLocaleDateString(isRTL ? 'ar-SA' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                  <p className="text-sm text-emerald-100 mb-1">Today</p>
+                  <p className="text-lg font-medium">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 </div>
                 <FileText className="h-8 w-8 text-emerald-100" />
               </div>
@@ -108,22 +104,22 @@ export default function DoctorDashboard() {
 
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-slate-900 mb-4" style={{ fontFamily: 'Manrope, sans-serif' }}>
-              {t('todayAppointments')}
+              Today's Appointments
             </h2>
             <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
               {todayAppointments.length === 0 ? (
                 <div data-testid="no-appointments-message" className="p-8 text-center text-slate-500">
-                  {t('noAppointments')}
+                  No appointments scheduled
                 </div>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead className="bg-slate-50 border-b border-slate-200">
                       <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('time')}</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('patientName')}</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('status')}</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{t('notes')}</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Time</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Patient Name</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Notes</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-200">
@@ -137,7 +133,7 @@ export default function DoctorDashboard() {
                               appt.status === 'done' ? 'bg-blue-100 text-blue-700' :
                               'bg-red-100 text-red-700'
                             }`}>
-                              {t(appt.status)}
+                              {appt.status}
                             </span>
                           </td>
                           <td className="px-6 py-4 text-sm text-slate-600">{appt.notes || '-'}</td>
@@ -152,7 +148,7 @@ export default function DoctorDashboard() {
 
           <div>
             <h2 className="text-2xl font-bold text-slate-900 mb-4" style={{ fontFamily: 'Manrope, sans-serif' }}>
-              {t('patients')}
+              Patients
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {patients.map((patient) => (
@@ -172,7 +168,7 @@ export default function DoctorDashboard() {
                       variant="ghost"
                       className="text-emerald-600 hover:text-emerald-700"
                     >
-                      {t('viewProfile')}
+                      View Profile
                     </Button>
                   </div>
                   <h3 className="text-lg font-semibold text-slate-900 mb-1">{patient.name}</h3>
@@ -180,13 +176,13 @@ export default function DoctorDashboard() {
                   <div className="pt-3 border-t border-slate-100">
                     <div className="space-y-1">
                       <p className="text-xs text-slate-500">
-                        {t('totalCost')}: <span className="font-semibold text-slate-700">{patient.total_cost.toFixed(2)} {t('JOD')}</span>
+                        Total Cost: <span className="font-semibold text-slate-700">{patient.total_cost.toFixed(2)} JOD</span>
                       </p>
                       <p className="text-xs text-slate-500">
-                        {t('totalPaid')}: <span className="font-semibold text-emerald-600">{patient.total_paid.toFixed(2)} {t('JOD')}</span>
+                        Total Paid: <span className="font-semibold text-emerald-600">{patient.total_paid.toFixed(2)} JOD</span>
                       </p>
                       <p className="text-xs text-slate-500">
-                        {t('balance')}: <span className="font-semibold text-orange-600">{patient.balance.toFixed(2)} {t('JOD')}</span>
+                        Balance: <span className="font-semibold text-orange-600">{patient.balance.toFixed(2)} JOD</span>
                       </p>
                     </div>
                   </div>
