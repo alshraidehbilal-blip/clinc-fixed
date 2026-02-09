@@ -67,7 +67,7 @@ export default function AdminDashboard() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-slate-500 mb-1">{t('patients')}</p>
+                    <p className="text-sm text-slate-500 mb-1">Patients</p>
                     <p className="text-3xl font-bold text-slate-900">{stats.total_patients}</p>
                   </div>
                   <div className="h-12 w-12 bg-emerald-100 rounded-lg flex items-center justify-center">
@@ -81,7 +81,7 @@ export default function AdminDashboard() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-slate-500 mb-1">{t('todayAppointments')}</p>
+                    <p className="text-sm text-slate-500 mb-1">Today's Appointments</p>
                     <p className="text-3xl font-bold text-slate-900">{stats.appointments_today}</p>
                   </div>
                   <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -95,7 +95,7 @@ export default function AdminDashboard() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-slate-500 mb-1">{t('totalDoctors')}</p>
+                    <p className="text-sm text-slate-500 mb-1">Total Doctors</p>
                     <p className="text-3xl font-bold text-slate-900">{stats.total_doctors}</p>
                   </div>
                   <div className="h-12 w-12 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -109,8 +109,8 @@ export default function AdminDashboard() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-emerald-700 mb-1">{t('totalRevenue')}</p>
-                    <p className="text-3xl font-bold text-emerald-900">{stats.total_revenue.toFixed(2)} {t('JOD')}</p>
+                    <p className="text-sm text-emerald-700 mb-1">Total Revenue</p>
+                    <p className="text-3xl font-bold text-emerald-900">{stats.total_revenue.toFixed(2)} JOD</p>
                   </div>
                   <div className="h-12 w-12 bg-emerald-200 rounded-lg flex items-center justify-center">
                     <DollarSign className="h-6 w-6 text-emerald-700" />
@@ -123,8 +123,8 @@ export default function AdminDashboard() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-slate-500 mb-1">{t('totalCollected')}</p>
-                    <p className="text-3xl font-bold text-slate-900">{stats.total_collected.toFixed(2)} {t('JOD')}</p>
+                    <p className="text-sm text-slate-500 mb-1">Total Collected</p>
+                    <p className="text-3xl font-bold text-slate-900">{stats.total_collected.toFixed(2)} JOD</p>
                   </div>
                   <div className="h-12 w-12 bg-green-100 rounded-lg flex items-center justify-center">
                     <Activity className="h-6 w-6 text-green-600" />
@@ -137,8 +137,8 @@ export default function AdminDashboard() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-orange-700 mb-1">{t('totalPending')}</p>
-                    <p className="text-3xl font-bold text-orange-900">{stats.total_pending.toFixed(2)} {t('JOD')}</p>
+                    <p className="text-sm text-orange-700 mb-1">Total Pending</p>
+                    <p className="text-3xl font-bold text-orange-900">{stats.total_pending.toFixed(2)} JOD</p>
                   </div>
                   <div className="h-12 w-12 bg-orange-200 rounded-lg flex items-center justify-center">
                     <ClipboardList className="h-6 w-6 text-orange-700" />
@@ -150,10 +150,10 @@ export default function AdminDashboard() {
 
           <Tabs defaultValue="calendar" className="w-full">
             <TabsList className="grid w-full grid-cols-4 mb-6" data-testid="admin-tabs">
-              <TabsTrigger value="calendar" data-testid="tab-calendar">{t('calendar')}</TabsTrigger>
-              <TabsTrigger value="users" data-testid="tab-users">{t('users')}</TabsTrigger>
-              <TabsTrigger value="procedures" data-testid="tab-procedures">{t('procedures')}</TabsTrigger>
-              <TabsTrigger value="payments" data-testid="tab-payments">{t('payments')}</TabsTrigger>
+              <TabsTrigger value="calendar" data-testid="tab-calendar">Calendar</TabsTrigger>
+              <TabsTrigger value="users" data-testid="tab-users">Users</TabsTrigger>
+              <TabsTrigger value="procedures" data-testid="tab-procedures">Procedures</TabsTrigger>
+              <TabsTrigger value="payments" data-testid="tab-payments">Payments</TabsTrigger>
             </TabsList>
 
             <TabsContent value="calendar" data-testid="calendar-content">
