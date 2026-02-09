@@ -128,7 +128,7 @@ export default function ReceptionistDashboard() {
                       <Label htmlFor="patient-doctor">Select Doctor</Label>
                       <Select value={patientForm.doctor_id} onValueChange={(value) => setPatientForm({ ...patientForm, doctor_id: value })}>
                         <SelectTrigger data-testid="patient-doctor-select">
-                          <SelectValue placeholder=Select Doctor />
+                          <SelectValue placeholder="Select Doctor" />
                         </SelectTrigger>
                         <SelectContent>
                           {doctors.map((doctor) => (
