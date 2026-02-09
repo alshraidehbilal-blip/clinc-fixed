@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
-import { useTranslation } from 'react-i18next';
 import Sidebar from '../components/Sidebar';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
@@ -18,7 +17,6 @@ const API = `${BACKEND_URL}/api`;
 
 export default function AdminDashboard() {
   const { user } = useAuth();
-  const { t } = useTranslation();
   const [stats, setStats] = useState({
     total_patients: 0,
     appointments_today: 0,
