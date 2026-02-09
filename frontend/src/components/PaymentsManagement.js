@@ -86,7 +86,7 @@ export default function PaymentsManagement() {
                 <Label htmlFor="patient">Select Patient</Label>
                 <Select value={formData.patient_id} onValueChange={(value) => setFormData({ ...formData, patient_id: value })}>
                   <SelectTrigger data-testid="payment-patient-select">
-                    <SelectValue placeholder=Select Patient />
+                    <SelectValue placeholder="Select Patient" />
                   </SelectTrigger>
                   <SelectContent>
                     {patients.map((patient) => (
