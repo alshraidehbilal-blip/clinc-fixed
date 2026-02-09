@@ -160,7 +160,7 @@ export default function ReceptionistDashboard() {
                       <Label htmlFor="appt-patient">Select Patient</Label>
                       <Select value={appointmentForm.patient_id} onValueChange={(value) => setAppointmentForm({ ...appointmentForm, patient_id: value })}>
                         <SelectTrigger data-testid="appt-patient-select">
-                          <SelectValue placeholder=Select Patient />
+                          <SelectValue placeholder="Select Patient" />
                         </SelectTrigger>
                         <SelectContent>
                           {patients.map((patient) => (
@@ -173,7 +173,7 @@ export default function ReceptionistDashboard() {
                       <Label htmlFor="appt-doctor">Select Doctor</Label>
                       <Select value={appointmentForm.doctor_id} onValueChange={(value) => setAppointmentForm({ ...appointmentForm, doctor_id: value })}>
                         <SelectTrigger data-testid="appt-doctor-select">
-                          <SelectValue placeholder=Select Doctor />
+                          <SelectValue placeholder="Select Doctor" />
                         </SelectTrigger>
                         <SelectContent>
                           {doctors.map((doctor) => (
