@@ -156,7 +156,7 @@ export default function UsersManagement() {
                 </Select>
               </div>
               <div>
-                <Label htmlFor="password">{editingUser 'newPassword (optional)') : 'password'} </Label>
+                <Label htmlFor="password">  {editingUser ? 'New Password (optional)' : 'Password'} </Label>
                 <Input
                   id="password"
                   type="password"
