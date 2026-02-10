@@ -9,7 +9,7 @@ import { Plus, Edit, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from './ui/alert-dialog';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
 const API = `${BACKEND_URL}/api`;
 
 export default function UsersManagement() {
@@ -106,7 +106,9 @@ export default function UsersManagement() {
           </DialogTrigger>
           <DialogContent data-testid="user-dialog">
             <DialogHeader>
-              <DialogTitle>{editingUser ? t('editUser') : t('addUser')}</DialogTitle>
+              <DialogTitle>
+                   {editingUser ? 'Edit User' : 'Add User'}
+               </DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -154,7 +156,7 @@ export default function UsersManagement() {
                 </Select>
               </div>
               <div>
-                <Label htmlFor="password">{editingUser ? t('newPassword') : t('password')} {editingUser && '(optional)'}</Label>
+                <Label htmlFor="password">{editingUser 'newPassword (optional)') : 'password'} </Label>
                 <Input
                   id="password"
                   type="password"
@@ -199,7 +201,7 @@ export default function UsersManagement() {
                         user.role === 'doctor' ? 'bg-emerald-100 text-emerald-700' :
                         'bg-blue-100 text-blue-700'
                       }`}>
-                        ${user.role}
+                        {user.role}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
