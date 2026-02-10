@@ -9,7 +9,7 @@ import { Plus, Edit, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from './ui/alert-dialog';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
 const API = `${BACKEND_URL}/api`;
 
 export default function ProceduresManagement() {
@@ -107,7 +107,7 @@ export default function ProceduresManagement() {
           </DialogTrigger>
           <DialogContent data-testid="procedure-dialog" className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>{editingProcedure ? t('editProcedure') : t('addProcedure')}</DialogTitle>
+              <DialogTitle>{editingProcedure ? 'editProcedure' : 'addProcedure'}</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -193,7 +193,7 @@ export default function ProceduresManagement() {
                       {procedure.name_en}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-emerald-600">
-                      {procedure.price.toFixed(2)} JOD
+                      {Number(procedure.price).toFixed(2)} JOD
                     </td>
                     <td className="px-6 py-4 text-sm text-slate-600">
                       {procedure.description_en}
