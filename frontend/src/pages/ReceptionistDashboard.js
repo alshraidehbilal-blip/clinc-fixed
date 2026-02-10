@@ -269,11 +269,6 @@ export default function ReceptionistDashboard() {
               )}
             </div>
           )}
-               <div className="w-full">
-            {activeTab === 'calendar' && <CalendarView />}
-          
-            {activeTab === 'payments' && <PaymentsManagement />}
-
         </div>
       </main>
     </div>
