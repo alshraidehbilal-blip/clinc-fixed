@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 import Sidebar from '../components/Sidebar';
-import { Button } from '../components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
+import { Card, CardContent } from '../components/ui/card';
 import { Users, Calendar, DollarSign, Activity, UserPlus, ClipboardList } from 'lucide-react';
 import { toast } from 'sonner';
 import UsersManagement from '../components/UsersManagement';
@@ -26,6 +24,7 @@ export default function AdminDashboard() {
     total_pending: 0
   });
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('calendar');
 
   useEffect(() => {
     fetchStats();
@@ -52,7 +51,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="flex min-h-screen bg-slate-50">
-      <Sidebar />
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       <main className="flex-1 p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-8">
@@ -63,10 +62,10 @@ export default function AdminDashboard() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <Card data-testid="total-patients-card" className="border-slate-200">
-              <CardContent className="pt-6">
-                <div className="flex items-center justify-between">
-                  <div>
+            <Card className="border-slate-200">
+             <CardContent className="pt-6">
+               <div className="flex items-center justify-between">
+                 <div>
                     <p className="text-sm text-slate-500 mb-1">Patients</p>
                     <p className="text-3xl font-bold text-slate-900">{stats.total_patients}</p>
                   </div>
@@ -77,7 +76,7 @@ export default function AdminDashboard() {
               </CardContent>
             </Card>
 
-            <Card data-testid="today-appointments-card" className="border-slate-200">
+            <Card className="border-slate-200">
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -91,7 +90,7 @@ export default function AdminDashboard() {
               </CardContent>
             </Card>
 
-            <Card data-testid="total-doctors-card" className="border-slate-200">
+            <Card className="border-slate-200">
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -105,7 +104,7 @@ export default function AdminDashboard() {
               </CardContent>
             </Card>
 
-            <Card data-testid="total-revenue-card" className="border-emerald-200 bg-gradient-to-br from-emerald-50 to-white">
+            <Card className="border-emerald-200 bg-gradient-to-br from-emerald-50 to-white">
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -119,7 +118,7 @@ export default function AdminDashboard() {
               </CardContent>
             </Card>
 
-            <Card data-testid="total-collected-card" className="border-slate-200">
+            <Card className="border-slate-200">
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -133,7 +132,7 @@ export default function AdminDashboard() {
               </CardContent>
             </Card>
 
-            <Card data-testid="total-pending-card" className="border-orange-200 bg-gradient-to-br from-orange-50 to-white">
+            <Card className="border-orange-200 bg-gradient-to-br from-orange-50 to-white">
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -148,30 +147,13 @@ export default function AdminDashboard() {
             </Card>
           </div>
 
-          <Tabs defaultValue="calendar" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-6" data-testid="admin-tabs">
-              <TabsTrigger value="calendar" data-testid="tab-calendar">Calendar</TabsTrigger>
-              <TabsTrigger value="users" data-testid="tab-users">Users</TabsTrigger>
-              <TabsTrigger value="procedures" data-testid="tab-procedures">Procedures</TabsTrigger>
-              <TabsTrigger value="payments" data-testid="tab-payments">Payments</TabsTrigger>
-            </TabsList>
 
-            <TabsContent value="calendar" data-testid="calendar-content">
-              <CalendarView />
-            </TabsContent>
-
-            <TabsContent value="users" data-testid="users-content">
-              <UsersManagement />
-            </TabsContent>
-
-            <TabsContent value="procedures" data-testid="procedures-content">
-              <ProceduresManagement />
-            </TabsContent>
-
-            <TabsContent value="payments" data-testid="payments-content">
-              <PaymentsManagement />
-            </TabsContent>
-          </Tabs>
+          <div className="w-full">
+            {activeTab === 'calendar' && <CalendarView />}
+            {activeTab === 'users' && <UsersManagement />}
+            {activeTab === 'procedures' && <ProceduresManagement />}
+            {activeTab === 'payments' && <PaymentsManagement />}
+          </div>
         </div>
       </main>
     </div>
