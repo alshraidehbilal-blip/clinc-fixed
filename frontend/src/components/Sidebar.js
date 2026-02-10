@@ -5,6 +5,9 @@ import { LayoutDashboard, Users, Calendar, LogOut, Activity } from 'lucide-react
 
 export default function Sidebar({ activeTab, setActiveTab }) {
   const { user, logout } = useAuth();
+  if (!user) {
+  return null;
+}
 
   const handleLogout = () => {
     logout();
